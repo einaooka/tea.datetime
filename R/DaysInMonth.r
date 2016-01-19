@@ -9,11 +9,13 @@
 #'
 #' @export NumDaysInMonth
 #' @export MonthName
+#' @export NumHoursInMonth
 #'
 #' @examples
 #' dates <- seq(as.Date("2000-1-1"), length.out = 6, by="mon")
 #' NumDaysInMonth(dates)
 #' MonthName(MonthFromDate(dates))
+#' NumHoursInMonth(dates)
 
 
 NumDaysInMonth <- function(date){
@@ -33,6 +35,17 @@ MonthName <- function(month.idx, short = FALSE){
   if (short){MonthName <- names.abb[month.idx]} else {MonthName <- names.full[month.idx]}
   return(MonthName)
 }
+
+#' @describeIn NumDaysInMonth Given series of date (first days of month), it returns a data frame containing number of peak and off-peak hours. 
+NumHoursInMonth <- function(Date){
+  end.date <- tail(Date,1)
+  dates <- seq(Date[1], end.date + NumDaysInMonth(end.date)-1, by="day")
+  date.df <- GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))
+  date.df <- aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
+  return(date.df)
+}
+
+
 
 
 

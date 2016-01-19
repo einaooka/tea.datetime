@@ -3,11 +3,14 @@
 \name{NumDaysInMonth}
 \alias{MonthName}
 \alias{NumDaysInMonth}
+\alias{NumHoursInMonth}
 \title{Number of Days in a Month}
 \usage{
 NumDaysInMonth(date)
 
 MonthName(month.idx, short = FALSE)
+
+NumHoursInMonth(Date)
 }
 \arguments{
 \item{date}{Date in either 'character' or 'date' format.}
@@ -22,10 +25,13 @@ Given a date, it returns the number of days in the month.
 \section{Functions}{
 \itemize{
 \item \code{MonthName}: Given month index, returns the month name.
+
+\item \code{NumHoursInMonth}: Given series of date (first days of month), it returns a data frame containing number of peak and off-peak hours.
 }}
 \examples{
 dates <- seq(as.Date("2000-1-1"), length.out = 6, by="mon")
 NumDaysInMonth(dates)
 MonthName(MonthFromDate(dates))
+NumHoursInMonth(dates)
 }
 
