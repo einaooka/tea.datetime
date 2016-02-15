@@ -5,6 +5,7 @@ Version: 0.1
 Date: 2015-11-24
 Author: Eina Ooka
 Maintainer: Eina Ooka <eooka@teainc.org>
-Description: Formatting functions for date and datetime objects. 
+Description: Formatting functions for date and datetime objects.
 License: The Energy Authority
 LazyData: TRUE
+RoxygenNote: 5.0.1

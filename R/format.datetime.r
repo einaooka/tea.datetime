@@ -8,6 +8,7 @@
 #' @param HE Integer (1:24) indicating hour-ending.
 #'
 #' @export as.Date0
+#' @export as.Date1
 #' @export MonthFromDate
 #' @export FirstDayOfMonth
 #' @export YearFromDate
@@ -22,6 +23,7 @@
 #'
 #' @examples
 #' as.Date0("1/1/2000")
+#' as.Date1("1/1/2000"); as.Date1("2000-1-1")
 #'
 #' dates <- seq(as.Date("2000-1-1"), length.out = 6, by="mon")+15
 #' dates
@@ -39,6 +41,15 @@
 
 # Dates from a standard date format.
 as.Date0 <- function(date){as.Date(date, "%m/%d/%Y")}
+
+# Dates from unknown date format
+as.Date1 <- function(date){
+  
+  if (class(date) == "Date") { return(date)
+  } else if (!is.na(as.Date0(date))) {return(as.Date0(date))
+  } else if (!is.na(as.Date(date))) { return(as.Date(date))
+  } else {print("Error: Unknown format.")}
+}
 
 #' @describeIn as.Date0 Given a date, rerurn the month as numeric
 MonthFromDate <- function(date){as.numeric(format(date, "%m"))}
