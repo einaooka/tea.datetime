@@ -45,9 +45,9 @@ as.Date0 <- function(date){as.Date(date, "%m/%d/%Y")}
 # Dates from unknown date format
 as.Date1 <- function(date){
   
-  if (class(date) == "Date") { return(date)
-  } else if (!is.na(as.Date0(date))) {return(as.Date0(date))
-  } else if (!is.na(as.Date(date))) { return(as.Date(date))
+  if (class(date[1]) == "Date") { return(date)
+  } else if (!is.na(as.Date0(date[1]))) {return(as.Date0(date))
+  } else if (!is.na(as.Date(date[1]))) { return(as.Date(date))
   } else {print("Error: Unknown format.")}
 }
 
