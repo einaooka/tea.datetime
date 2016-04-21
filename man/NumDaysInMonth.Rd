@@ -33,5 +33,6 @@ dates <- seq(as.Date("2000-1-1"), length.out = 6, by="mon")
 NumDaysInMonth(dates)
 MonthName(MonthFromDate(dates))
 NumHoursInMonth(dates)
+DiffMonths(dates, as.Date("2000-3-1"))
 }
 

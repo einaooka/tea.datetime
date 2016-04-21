@@ -10,12 +10,14 @@
 #' @export NumDaysInMonth
 #' @export MonthName
 #' @export NumHoursInMonth
+#' @export DiffMonths
 #'
 #' @examples
 #' dates <- seq(as.Date("2000-1-1"), length.out = 6, by="mon")
 #' NumDaysInMonth(dates)
 #' MonthName(MonthFromDate(dates))
 #' NumHoursInMonth(dates)
+#' DiffMonths(dates, as.Date("2000-3-1"))
 
 
 NumDaysInMonth <- function(date){
@@ -46,7 +48,15 @@ NumHoursInMonth <- function(Date){
   return(date.df)
 }
 
+#' @describeIn DiffMonths Given 2 dates, it returns the number of months in between. The first argument can be a vector. 
+DiffMonths <- function(dates, date1){ 
+  sapply(dates, function(x) DiffMonths.temp(date1,x))
+}
 
-
-
-
+DiffMonths.temp <- function(date1, date2){ 
+  if (date1 <= date2){
+  length(seq(from=date1, to=date2, by='month')) - 1 
+  } else {
+    -1 * length(seq(from=date2, to=date1, by='month')) - 1 
+  }
+}
