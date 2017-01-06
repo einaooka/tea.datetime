@@ -48,7 +48,7 @@ NumHoursInMonth <- function(Date){
   return(date.df)
 }
 
-#' @describeIn DiffMonths Given 2 dates, it returns the number of months in between. The first argument can be a vector. 
+#' @describeIn NumDaysInMonth Given 2 dates, it returns the number of months in between. The first argument can be a vector. 
 DiffMonths <- function(dates, date1){ 
   sapply(dates, function(x) DiffMonths.temp(date1,x))
 }
