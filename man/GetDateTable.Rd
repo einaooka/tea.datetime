@@ -4,14 +4,14 @@
 \alias{GetDateTable}
 \title{Get Date Table}
 \usage{
-GetDateTable(dates, col.names = c("Date", "Month", "Year", "DOW", "Peak",
-  "pk.nHours", "opk.nHours", "pk.weight", "opk.weight"))
+GetDateTable(dates, col.names = c("Date", "Month", "Year", "DOW", "FDOM",
+  "Peak", "nHours_HLH", "nHours_LLH", "weight_HLH", "weight_LLH"))
 }
 \arguments{
 \item{dates}{an array of date objects}
 
 \item{col.names}{A list of columns included in the returned table.
-Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "pk.nHours","opk.nHours", "pk.weight", "opk.weight")}
+Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")}
 }
 \description{
 Given dates, it returns a data frame with peak and off-peak information.
@@ -22,7 +22,7 @@ GetDateTable(dates)
 
 # Calculate number of on-peak and off-peak hours
 dates <- seq(as.Date("2015-1-1"),as.Date("2020-1-1"), by=1)
-date.df <- GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))
+date.df <- GetDateTable(dates, c("Date", "nHours_HLH", "nHours_LLH"))
 aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
 
 

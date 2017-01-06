@@ -42,7 +42,7 @@ MonthName <- function(month.idx, short = FALSE){
 NumHoursInMonth <- function(Date){
   end.date <- max(Date)
   dates <- seq(min(Date), end.date + NumDaysInMonth(end.date)-1, by="day")
-  date.df <- GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))
+  date.df <- GetDateTable(dates, c("Date", "nHours_HLH", "nHours_LLH"))
   date.df <- aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
   date.df <- date.df[match(Date, date.df$Date),]
   return(date.df)

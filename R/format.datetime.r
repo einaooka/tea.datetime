@@ -43,9 +43,15 @@
 as.Date0 <- function(date){as.Date(date, "%m/%d/%Y")}
 
 # Dates from unknown date format
-as.Date1 <- function(date){
+as.Date1 <- function(date, tz=NULL){
   
-  if (class(date[1]) == "Date") { return(date)
+  if ("Date" %in% class(date[1])) { return(date)
+  } else if ("POSIXct" %in% class(date[1])){
+    if(is.null(tz)){
+      tz <- "America/Los_Angeles"
+      cat("tz is not specified.", tz, "is used for the time zone.")
+    }
+    return(as.Date(date, "%Y-%m-%d", tz = tz))
   } else if (!is.na(as.Date0(date[1]))) {return(as.Date0(date))
   } else if (!is.na(as.Date(date[1]))) { return(as.Date(date))
   } else {print("Error: Unknown format.")}
@@ -74,11 +80,3 @@ DateFromDateTime <- function(datetime){as.Date(format(datetime, "%Y-%m-%d"))}
 
 #' @describeIn as.Date0 Given a date and HE, returns the date-time for the beginning of the hour.
 DateAndHEAsPOSIX <- function(date, HE){as.POSIXct(strptime(paste(date, (HE-1)), "%Y-%m-%d %H"))}
-
-
-
-
-
-
-
-

@@ -5,7 +5,7 @@
 #'
 #' @param dates an array of date objects
 #' @param col.names A list of columns included in the returned table.
-#' Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "pk.nHours","opk.nHours", "pk.weight", "opk.weight")
+#' Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")
 #'
 #' @import timeDate
 #'
@@ -17,12 +17,12 @@
 #'
 #' # Calculate number of on-peak and off-peak hours
 #' dates <- seq(as.Date("2015-1-1"),as.Date("2020-1-1"), by=1)
-#' date.df <- GetDateTable(dates, c("Date", "pk.nHours", "opk.nHours"))
+#' date.df <- GetDateTable(dates, c("Date", "nHours_HLH", "nHours_LLH"))
 #' aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
 #'
 #'
 
-GetDateTable <- function(dates, col.names = c("Date","Month","Year", "DOW", "Peak", "pk.nHours","opk.nHours", "pk.weight", "opk.weight")){
+GetDateTable <- function(dates, col.names = c("Date","Month","Year", "DOW", "FDOM", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")){
 
   date.df <- data.frame("Date" = dates)
   date.df$Month <- MonthFromDate(date.df$Date)
@@ -32,13 +32,14 @@ GetDateTable <- function(dates, col.names = c("Date","Month","Year", "DOW", "Pea
   date.df$DOW<-weekdays(date.df$Date)
   tradeYear <- unique(YearFromDate(date.df$Date))
   date.df$DOW<-ifelse(date.df$Date %in% as.Date(timeDate::holidayNERC(tradeYear)@Data),"Holiday",date.df$DOW)
+  date.df$FDOM <- FirstDayOfMonth(date.df$Date)
   date.df$Peak<-ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
 
-  date.df$pk.nHours <- ifelse(date.df$Peak, 16, 0)
-  date.df$opk.nHours <- 24-date.df$pk.nHours
+  date.df$nHours_HLH <- ifelse(date.df$Peak, 16, 0)
+  date.df$nHours_LLH <- 24-date.df$nHours_HLH
 
-  date.df$pk.weight <- date.df$pk.nHours/24
-  date.df$opk.weight <- date.df$opk.nHours/24
+  date.df$weight_HLH <- date.df$nHours_HLH/24
+  date.df$weight_LLH <- date.df$nHours_LLH/24
 
 return(date.df[,col.names])
 }
