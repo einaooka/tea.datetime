@@ -13,7 +13,7 @@
 #' @examples
 #' dates <- seq(as.Date("2000-1-1"), length.out = 20, by="day")
 #' mtx <- matrix(1:(24*20), ncol=24)
-#' CalcDailyPeakPeriods(date, mtx, colname="Load_aMW_")
+#' CalcDailyPeakPeriods(dates, mtx, colname="Load_aMW_")
 #'
 
 CalcDailyPeakPeriods <- function(date, mtx, colname=""){
