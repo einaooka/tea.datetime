@@ -4,6 +4,7 @@
 #' @description Given dates, it returns a data frame with peak and off-peak information.
 #'
 #' @param dates an array of date objects
+#' @param market "WECC" or "MISO"
 #' @param col.names A list of columns included in the returned table.
 #' Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")
 #'
@@ -22,7 +23,9 @@
 #'
 #'
 
-GetDateTable <- function(dates, col.names = c("Date","Month","Year", "DOW", "FDOM", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")){
+GetDateTable <- function(dates
+                         , market = "WECC"
+                         , col.names = c("Date","Month","Year", "DOW", "FDOM", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")){
 
   date.df <- data.frame("Date" = dates)
   date.df$Month <- MonthFromDate(date.df$Date)
@@ -33,7 +36,11 @@ GetDateTable <- function(dates, col.names = c("Date","Month","Year", "DOW", "FDO
   tradeYear <- unique(YearFromDate(date.df$Date))
   date.df$DOW<-ifelse(date.df$Date %in% as.Date(timeDate::holidayNERC(tradeYear)@Data),"Holiday",date.df$DOW)
   date.df$FDOM <- FirstDayOfMonth(date.df$Date)
-  date.df$Peak<-ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
+  
+  date.df$Peak<- switch(market
+                        , "WECC" = ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
+                        , "MISO" = ifelse(date.df$DOW %in% c("Holiday","Saturday", "Sunday"),FALSE,TRUE))
+
 
   date.df$nHours_HLH <- ifelse(date.df$Peak, 16, 0)
   date.df$nHours_LLH <- 24-date.df$nHours_HLH

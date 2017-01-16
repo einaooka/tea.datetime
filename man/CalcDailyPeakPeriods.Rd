@@ -4,7 +4,7 @@
 \alias{CalcDailyPeakPeriods}
 \title{Convert hourly data to HLH/LLH Daily}
 \usage{
-CalcDailyPeakPeriods(date, mtx, colname = "")
+CalcDailyPeakPeriods(date, mtx, market = "WECC", colname = "")
 }
 \arguments{
 \item{date}{Consecutive daily date data in 'date' format.}
@@ -20,7 +20,7 @@ WECC definition was used in HLH/LLH split.
 \examples{
 dates <- seq(as.Date("2000-1-1"), length.out = 20, by="day")
 mtx <- matrix(1:(24*20), ncol=24)
-CalcDailyPeakPeriods(date, mtx, colname="Load_aMW_")
+CalcDailyPeakPeriods(dates, mtx, colname="Load_aMW_")
 
 }
 

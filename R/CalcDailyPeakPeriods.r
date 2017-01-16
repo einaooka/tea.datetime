@@ -16,9 +16,9 @@
 #' CalcDailyPeakPeriods(dates, mtx, colname="Load_aMW_")
 #'
 
-CalcDailyPeakPeriods <- function(date, mtx, colname=""){
+CalcDailyPeakPeriods <- function(date, mtx, market = "WECC", colname=""){
   
-  date.df <- GetDateTable(date)
+  date.df <- GetDateTable(date, market)
   
   HLH <- rowMeans(mtx[,7:22])
   LLH <- rowMeans(mtx[,c(1:6,23,24)])
