@@ -4,7 +4,7 @@
 #' @description Given dates, it returns a data frame with peak and off-peak information.
 #'
 #' @param dates an array of date objects
-#' @param market "WECC" or "MISO"
+#' @param market "PNW", "CAISO" or "MISO"
 #' @param col.names A list of columns included in the returned table.
 #' Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")
 #'
@@ -24,7 +24,7 @@
 #'
 
 GetDateTable <- function(dates
-                         , market = "WECC"
+                         , market = "PNW"
                          , col.names = c("Date","Month","Year", "DOW", "FDOM", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")){
 
   date.df <- data.frame("Date" = dates)
@@ -38,7 +38,8 @@ GetDateTable <- function(dates
   date.df$FDOM <- FirstDayOfMonth(date.df$Date)
   
   date.df$Peak<- switch(market
-                        , "WECC" = ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
+                        , "PNW" = ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
+                        , "CAISO" = ifelse(date.df$DOW %in% c("Holiday","Sunday"),FALSE,TRUE)
                         , "MISO" = ifelse(date.df$DOW %in% c("Holiday","Saturday", "Sunday"),FALSE,TRUE))
 
 

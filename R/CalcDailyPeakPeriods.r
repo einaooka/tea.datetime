@@ -5,6 +5,8 @@
 #'
 #' @param date Consecutive daily date data in 'date' format.
 #' @param mtx A matrix with 24 columns corresponding to each hour. Number of rows need to match the length of date.  
+#' @param market "PNW", "CAISO" or "MISO"
+#' @param colname columnname prefixes to HLH/LLH.
 #'
 #' @export CalcDailyPeakPeriods
 #'
@@ -16,7 +18,7 @@
 #' CalcDailyPeakPeriods(dates, mtx, colname="Load_aMW_")
 #'
 
-CalcDailyPeakPeriods <- function(date, mtx, market = "WECC", colname=""){
+CalcDailyPeakPeriods <- function(date, mtx, market = "PNW", colname=""){
   
   date.df <- GetDateTable(date, market)
   

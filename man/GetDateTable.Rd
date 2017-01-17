@@ -4,14 +4,14 @@
 \alias{GetDateTable}
 \title{Get Date Table}
 \usage{
-GetDateTable(dates, market = "WECC", col.names = c("Date", "Month", "Year",
+GetDateTable(dates, market = "PNW", col.names = c("Date", "Month", "Year",
   "DOW", "FDOM", "Peak", "nHours_HLH", "nHours_LLH", "weight_HLH",
   "weight_LLH"))
 }
 \arguments{
 \item{dates}{an array of date objects}
 
-\item{market}{"WECC" or "MISO"}
+\item{market}{"PNW", "CAISO" or "MISO"}
 
 \item{col.names}{A list of columns included in the returned table.
 Default returns all columns: c("Date","Month","Year", "DOW", "Peak", "nHours_HLH","nHours_LLH", "weight_HLH", "weight_LLH")}

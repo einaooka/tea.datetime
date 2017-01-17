@@ -4,12 +4,16 @@
 \alias{CalcDailyPeakPeriods}
 \title{Convert hourly data to HLH/LLH Daily}
 \usage{
-CalcDailyPeakPeriods(date, mtx, market = "WECC", colname = "")
+CalcDailyPeakPeriods(date, mtx, market = "PNW", colname = "")
 }
 \arguments{
 \item{date}{Consecutive daily date data in 'date' format.}
 
 \item{mtx}{A matrix with 24 columns corresponding to each hour. Number of rows need to match the length of date.}
+
+\item{market}{"PNW", "CAISO" or "MISO"}
+
+\item{colname}{columnname prefixes to HLH/LLH.}
 }
 \description{
 Given 24 hour matrix, it returns HLH/LLH Daily data frame.
