@@ -6,6 +6,7 @@
 #' @param date Date in either 'character' or 'date' format.
 #' @param month.idx An integer (1:12) indicating month index.
 #' @param short A binary. If TRUE, month names are shown in abbreviated forms.
+#' @param market "PNW", "CAISO" or "MISO"
 #'
 #' @export NumDaysInMonth
 #' @export MonthName
@@ -39,10 +40,10 @@ MonthName <- function(month.idx, short = FALSE){
 }
 
 #' @describeIn NumDaysInMonth Given series of date (first days of month), it returns a data frame containing number of peak and off-peak hours. 
-NumHoursInMonth <- function(Date){
+NumHoursInMonth <- function(Date, market = "PNW"){
   end.date <- max(Date)
   dates <- seq(min(Date), end.date + NumDaysInMonth(end.date)-1, by="day")
-  date.df <- GetDateTable(dates, c("Date", "nHours_HLH", "nHours_LLH"))
+  date.df <- GetDateTable(dates, market, c("Date", "nHours_HLH", "nHours_LLH"))
   date.df <- aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
   date.df <- date.df[match(Date, date.df$Date),]
   return(date.df)

@@ -21,11 +21,11 @@ Given dates, it returns a data frame with peak and off-peak information.
 }
 \examples{
 dates <- seq(as.Date("2015-1-1"), length.out = 10, by=1)
-GetDateTable(dates)
+GetDateTable(dates, market = "CAISO")
 
 # Calculate number of on-peak and off-peak hours
 dates <- seq(as.Date("2015-1-1"),as.Date("2020-1-1"), by=1)
-date.df <- GetDateTable(dates, c("Date", "nHours_HLH", "nHours_LLH"))
+date.df <- GetDateTable(dates, "MISO",c("Date", "nHours_HLH", "nHours_LLH"))
 aggregate(date.df[,-1], by=list("Date"=FirstDayOfMonth(date.df$Date)), sum)
 
 

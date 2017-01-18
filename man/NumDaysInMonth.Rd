@@ -11,7 +11,7 @@ NumDaysInMonth(date)
 
 MonthName(month.idx, short = FALSE)
 
-NumHoursInMonth(Date)
+NumHoursInMonth(Date, market = "PNW")
 
 DiffMonths(dates, date1)
 }
@@ -21,6 +21,8 @@ DiffMonths(dates, date1)
 \item{month.idx}{An integer (1:12) indicating month index.}
 
 \item{short}{A binary. If TRUE, month names are shown in abbreviated forms.}
+
+\item{market}{"PNW", "CAISO" or "MISO"}
 }
 \description{
 Given a date, it returns the number of days in the month.
